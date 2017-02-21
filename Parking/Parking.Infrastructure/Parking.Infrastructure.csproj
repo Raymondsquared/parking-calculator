@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>8c8e254d-8bd4-4428-a4bd-61dbd5de7724</ProjectGuid>
+    <ProjectGuid>{8C8E254D-8BD4-4428-A4BD-61DBD5DE7724}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Parking.Infrastructure</RootNamespace>
@@ -30,24 +30,35 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Net.Http"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Abstractions\ISpecialRepository.cs" />
+    <Compile Include="Abstractions\INormalRepository.cs" />
+    <Compile Include="Repositories\SpecialJsonRepository.cs" />
+    <Compile Include="Repositories\NormalJsonRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Persistences\normal.json" />
+    <None Include="Persistences\special.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Parking.Domain.Model\Parking.Domain.Model.csproj">
+      <Project>{290F5318-F841-416F-9743-70DE18E03567}</Project>
+      <Name>Parking.Domain.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Parking.Infrastructure.CrossCutting\Parking.Infrastructure.CrossCutting.csproj">
+      <Project>{99694AF0-437B-40E1-BAEA-2FB6D9A29EB3}</Project>
+      <Name>Parking.Infrastructure.CrossCutting</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -57,5 +68,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
- </Project>
+</Project>
