@@ -179,6 +179,12 @@ namespace Parking.Test.Unit
                     Start = new DateTime(2017, 1, 2, 12, 0, 0),
                     End = new DateTime(2017, 1, 4, 19, 0, 0),
                     Expected = 60
+                },
+                new CalculatorCase()
+                {
+                    Start = new DateTime(2017, 1, 2, 12, 0, 0),
+                    End = new DateTime(2017, 1, 2, 12, 15, 0),
+                    Expected = 5
                 }
             };
 
