@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Parking.Domain.Service.DTOs;
 
 namespace Parking.Domain.Service.Abstractions
 {
     public interface ICalculatorService
     {
-        Task<double> Calculate(DateTime start, DateTime end);
+        Task<ParkingRateDto> Calculate(DateTime start, DateTime end);
     }   
 }

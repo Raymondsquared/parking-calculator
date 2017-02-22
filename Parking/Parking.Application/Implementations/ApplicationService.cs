@@ -23,7 +23,12 @@ namespace Parking.Application.Implementations
             var end = Convert.ToDateTime(input.ElementAt(1));
 
             var response = await _calculatorService.Calculate(start, end);
-            return response.ToString("C");
+            var result = string.Empty;
+            result += 
+                "\nPackage : " + response.Name + 
+                "\nTOTAL COST : " + response.Price.ToString("C");
+
+            return result;
         }
         
         // TODO: Refactor this with Abstraction like IValidator 

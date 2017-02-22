@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Parking.Domain.Model;
 using Parking.Domain.Service.Abstractions;
+using Parking.Domain.Service.DTOs;
 using Parking.Infrastructure.CrossCutting.Abstractions;
 
 namespace Parking.Domain.Service.Implementations
@@ -19,27 +20,28 @@ namespace Parking.Domain.Service.Implementations
             _normalService = normalService;
         }
 
-        public async Task<double> Calculate(DateTime start, DateTime end)
+        public async Task<ParkingRateDto> Calculate(DateTime start, DateTime end)
         {
             var specialRates = await _specialService.GetAllAsync();
             var normalRates = await _normalService.GetAllAsync();
 
-            var result = 0.0;
+            var resultDto = new ParkingRateDto();
 
             // TODO: Refactor this with Abstraction like IValidator 
             // TODO: and orchestrate with Chain of Responsibility pattern
             var resultSpecial = calculateSpecial(specialRates, start, end);
-            result = resultSpecial;
+            resultDto = resultSpecial;
             
             var resultNormal = calculateNormal(normalRates, start, end);
            
             // choose for either normal vs special
-            if (resultNormal > 0 && (result == 0 || result > resultNormal))
+            if (resultNormal > 0 && (resultDto.Price == 0 || resultDto.Price > resultNormal))
             {
-                result = resultNormal;
+                resultDto.Name = "Normal Rate";
+                resultDto.Price = resultNormal;
             }
 
-            return result;
+            return resultDto;
         }
 
         // TODO: Refactor this with Abstraction like IValidator 
@@ -79,9 +81,9 @@ namespace Parking.Domain.Service.Implementations
 
         // TODO: Refactor this with Abstraction like IValidator 
         // TODO: and orchestrate with Chain of Responsibility pattern
-        private double calculateSpecial(IEnumerable<Special> specialRates, DateTime start, DateTime end)
+        private ParkingRateDto calculateSpecial(IEnumerable<Special> specialRates, DateTime start, DateTime end)
         {
-            var result = 0.0;
+            var result = new ParkingRateDto();
 
             foreach (var specialRate in specialRates)
             {
@@ -126,9 +128,10 @@ namespace Parking.Domain.Service.Implementations
 
                 if (isSpecial)
                 {
-                    if (result == 0 || result > specialRate.TotalPrice)
+                    if (result.Price == 0 || result.Price > specialRate.TotalPrice)
                     {
-                        result = specialRate.TotalPrice;
+                        result.Name = specialRate.Name;
+                        result.Price = specialRate.TotalPrice;
                     }
                 }
             }
