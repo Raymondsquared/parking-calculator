@@ -39,11 +39,19 @@ namespace Parking
                     Console.WriteLine(msg);
                 }
             }
-                        
-            var response = appService.ProcessAsync(dts).Result;
 
-            Console.WriteLine("\n TOTAL COST : ");
-            Console.WriteLine(response);
+            try
+            {
+                var response = appService.ProcessAsync(dts).Result;
+
+                Console.WriteLine("\n TOTAL COST : ");
+                Console.WriteLine(response);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("\n Error please try again.");
+                Console.WriteLine(ex.Message + "\n");
+            }            
         }        
     }
 }
