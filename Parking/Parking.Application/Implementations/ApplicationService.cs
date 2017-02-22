@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Parking.Application.Abstractions;
 using Parking.Domain.Service.Abstractions;
@@ -14,11 +15,47 @@ namespace Parking.Application.Implementations
         {
             _calculatorService = calculatorService;
         }
+        
 
-        public async Task<string> ProcessAsync(IEnumerable<string> input)
+        public async Task<string> ProcessAsync(IEnumerable<DateTime> input)
         {
-            var response = await _calculatorService.Calculate(new DateTime(), new DateTime());
-            return response.ToString();
+            var start = Convert.ToDateTime(input.ElementAt(0));
+            var end = Convert.ToDateTime(input.ElementAt(1));
+
+            var response = await _calculatorService.Calculate(start, end);
+            return response.ToString("C");
+        }
+        
+        // TODO: Refactor this with Abstraction like IValidator 
+        // TODO: and orchestrate with Chain of Responsibility pattern
+        public bool ValidateInput(IEnumerable<string> input, out string message, out List<DateTime> dts)
+        {
+            var result = true;
+
+            message = string.Empty;
+            dts = new List<DateTime>();
+
+            try
+            {
+                var start = Convert.ToDateTime(input.ElementAt(0));
+                var end = Convert.ToDateTime(input.ElementAt(1));
+
+                if (end <= start)
+                {
+                    message = "End date is greater than start date\n";
+                    result = false;
+                }
+
+                dts.Add(start);
+                dts.Add(end);
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message + "\n";
+                result = false;
+            }
+
+            return result;
         }
     }
 }
