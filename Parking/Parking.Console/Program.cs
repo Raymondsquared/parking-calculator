@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Autofac;
 using Parking.Application.Abstractions;
+using Parking.Infrastructure.CrossCutting.DTOs;
 using Parking.Infrastructure.DependencyInjection;
 
-namespace Parking
+namespace Parking.Console
 {
     class Program
     {
@@ -15,41 +15,41 @@ namespace Parking
             var builder = new ContainerBuilder();
             builder.RegisterModule<MainModule>();
             IContainer container = builder.Build();
-
+            
             var appService = container.Resolve<IApplicationService>();
 
-            var dts = new List<DateTime>();
+            var timer = new TimerDto();
+            var valid = new ValidationDto();
 
-            var isValid = false;
-            while (!isValid)
+            while (!valid.IsValid)
             {
-                string msg;
-                var input = new List<String>();
+                var input = new List<string>();
 
-                Console.WriteLine("Enter entry date & time (DD/MM/YYYY HH:mm) : ");
-                input.Add(Console.ReadLine());
+                System.Console.WriteLine("Enter entry date & time (DD/MM/YYYY HH:mm) : ");
+                input.Add(System.Console.ReadLine());
 
-                Console.WriteLine("Enter exit date & time  (DD/MM/YYYY HH:mm) : ");
-                input.Add(Console.ReadLine());
+                System.Console.WriteLine("Enter exit date & time  (DD/MM/YYYY HH:mm) : ");
+                input.Add(System.Console.ReadLine());
 
-                isValid = appService.ValidateInput(input, out msg, out dts);
-
-                if (!isValid)
+                valid = appService.ValidateConsoleInput(input, out timer);
+                if (!valid.IsValid)
                 {
-                    Console.WriteLine(msg);
+                    System.Console.WriteLine(valid.ErrorMessage);
                 }
             }
 
             try
             {
-                var response = appService.ProcessAsync(dts).Result;
-                
-                Console.WriteLine(response);
+                var response = appService.ProcessAsync(timer).Result;
+                System.Console.WriteLine(response);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message + "\n");
-            }            
+                System.Console.WriteLine(ex.Message + "\n");
+            }
+
+            System.Console.WriteLine("Press any key to exit...");
+            System.Console.ReadLine();
         }        
     }
 }

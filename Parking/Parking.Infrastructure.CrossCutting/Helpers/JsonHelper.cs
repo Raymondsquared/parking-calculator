@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Parking.Infrastructure.CrossCutting.Helper
+namespace Parking.Infrastructure.CrossCutting.Helpers
 {
     public static class JsonHelper
     {

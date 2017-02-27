@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Parking.Domain.Model;
 using Parking.Domain.Service.Abstractions;
-using Parking.Domain.Service.DTOs;
 using Parking.Infrastructure.CrossCutting.Abstractions;
+using Parking.Infrastructure.CrossCutting.DTOs;
 
 namespace Parking.Domain.Service.Implementations
 {
@@ -20,7 +20,7 @@ namespace Parking.Domain.Service.Implementations
             _normalService = normalService;
         }
 
-        public async Task<ParkingRateDto> Calculate(DateTime start, DateTime end)
+        public async Task<ParkingRateDto> Calculate(TimerDto input)
         {
             var specialRates = await _specialService.GetAllAsync();
             var normalRates = await _normalService.GetAllAsync();
@@ -29,10 +29,10 @@ namespace Parking.Domain.Service.Implementations
 
             // TODO: Refactor this with Abstraction like IValidator 
             // TODO: and orchestrate with Chain of Responsibility pattern
-            var resultSpecial = calculateSpecial(specialRates, start, end);
+            var resultSpecial = calculateSpecial(specialRates, input.Entry, input.Exit);
             resultDto = resultSpecial;
             
-            var resultNormal = calculateNormal(normalRates, start, end);
+            var resultNormal = calculateNormal(normalRates, input.Entry, input.Exit);
            
             // choose for either normal vs special
             if (resultNormal > 0 && (resultDto.Price == 0 || resultDto.Price > resultNormal))

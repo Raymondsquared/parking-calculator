@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Parking.Domain.Model
+﻿namespace Parking.Domain.Model
 {
     public class Special
     {

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Parking.Domain.Model;
 using Parking.Infrastructure.Abstractions;
-using Parking.Infrastructure.CrossCutting.Helper;
+using Parking.Infrastructure.CrossCutting.Helpers;
 
 namespace Parking.Infrastructure.Repositories
 {

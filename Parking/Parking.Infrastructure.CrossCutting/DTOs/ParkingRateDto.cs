@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Parking.Domain.Service.DTOs
+﻿namespace Parking.Infrastructure.CrossCutting.DTOs
 {
     public class ParkingRateDto
     {

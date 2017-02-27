@@ -4,63 +4,69 @@ using System.Linq;
 using System.Threading.Tasks;
 using Parking.Application.Abstractions;
 using Parking.Domain.Service.Abstractions;
+using Parking.Infrastructure.CrossCutting.Abstractions;
+using Parking.Infrastructure.CrossCutting.DTOs;
 
 namespace Parking.Application.Implementations
 {
     public class ApplicationService : IApplicationService
     {
         private readonly ICalculatorService _calculatorService;
+        private readonly IEnumerable<IValidator<string>> _consoleInputValidators;
+        private readonly IEnumerable<IValidator<TimerDto>> _datesValidators;
 
-        public ApplicationService(ICalculatorService calculatorService)
+        public ApplicationService(
+            ICalculatorService calculatorService,
+            IEnumerable<IValidator<string>> consoleInputValidators,
+            IEnumerable<IValidator<TimerDto>> datesValidators
+            )
         {
             _calculatorService = calculatorService;
+            _consoleInputValidators = consoleInputValidators;
+            _datesValidators = datesValidators;
         }
         
-
-        public async Task<string> ProcessAsync(IEnumerable<DateTime> input)
+        public async Task<string> ProcessAsync(TimerDto input)
         {
-            var start = Convert.ToDateTime(input.ElementAt(0));
-            var end = Convert.ToDateTime(input.ElementAt(1));
-
-            var response = await _calculatorService.Calculate(start, end);
-            var result = string.Empty;
-            result += 
+            var response = await _calculatorService.Calculate(input);
+            var result = 
                 "\nPackage : " + response.Name + 
                 "\nTOTAL COST : " + response.Price.ToString("C");
 
             return result;
         }
         
-        // TODO: Refactor this with Abstraction like IValidator 
-        // TODO: and orchestrate with Chain of Responsibility pattern
-        public bool ValidateInput(IEnumerable<string> input, out string message, out List<DateTime> dts)
+        // TODO: orchestrate with Chain of Responsibility pattern
+        public ValidationDto ValidateConsoleInput(IList<string> input, out TimerDto timer)
         {
-            var result = true;
+            timer = new TimerDto();
 
-            message = string.Empty;
-            dts = new List<DateTime>();
-
-            try
+            foreach (var validator in _consoleInputValidators)
             {
-                var start = Convert.ToDateTime(input.ElementAt(0));
-                var end = Convert.ToDateTime(input.ElementAt(1));
-
-                if (end <= start)
+                foreach (var i in input)
                 {
-                    message = "End date is greater than start date\n";
-                    result = false;
+                    var r = validator.IsValid(i);
+                    if (!r.IsValid)
+                    {
+                        return r;
+                    }
                 }
-
-                dts.Add(start);
-                dts.Add(end);
             }
-            catch (Exception ex)
+
+            // Add them into the out objects
+            timer.Entry = Convert.ToDateTime(input.ElementAt(0));
+            timer.Exit = Convert.ToDateTime(input.ElementAt(1));
+            
+            foreach (var validator in _datesValidators)
             {
-                message = ex.Message + "\n";
-                result = false;
+                var r = validator.IsValid(timer);
+                if (!r.IsValid)
+                {
+                    return r;
+                }
             }
-
-            return result;
+           
+            return new ValidationDto() {IsValid = true};
         }
     }
 }

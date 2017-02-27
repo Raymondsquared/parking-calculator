@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Parking.Infrastructure.CrossCutting.Helper
+namespace Parking.Infrastructure.CrossCutting.Helpers
 {
     public static class FileHelper
     {

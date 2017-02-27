@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NUnit.Framework;
 using Parking.Domain.Service.Abstractions;
-using Parking.Domain.Service.DTOs;
+using Parking.Infrastructure.CrossCutting.DTOs;
 using Parking.Infrastructure.DependencyInjection;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
@@ -12,8 +11,7 @@ namespace Parking.Test.Unit
 {
     public class CalculatorCase
     {
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
+        public TimerDto TimerData { get; set; }
         public ParkingRateDto Expected { get; set; }
     }
 
@@ -47,8 +45,11 @@ namespace Parking.Test.Unit
                 // Edge case
                 new CalculatorCase()
                 {
-                    Start = new DateTime(2017, 1, 2, 6, 0, 0),
-                    End = new DateTime(2017, 1, 2, 15, 30, 0),
+                    TimerData = new TimerDto()
+                    {
+                        Entry = new DateTime(2017, 1, 2, 6, 0, 0),
+                        Exit = new DateTime(2017, 1, 2, 15, 30, 0)
+                    },
                     Expected = new ParkingRateDto()
                     {
                         Name = "Early Bird",
@@ -58,8 +59,11 @@ namespace Parking.Test.Unit
                 // Edge case
                 new CalculatorCase()
                 {
-                    Start = new DateTime(2017, 1, 2, 9, 0, 0),
-                    End = new DateTime(2017, 1, 2, 23, 30, 0),
+                    TimerData = new TimerDto()
+                    {
+                        Entry = new DateTime(2017, 1, 2, 9, 0, 0),
+                        Exit = new DateTime(2017, 1, 2, 23, 30, 0)
+                    },
                     Expected = new ParkingRateDto()
                     {
                         Name = "Early Bird",
@@ -68,8 +72,11 @@ namespace Parking.Test.Unit
                 },
                 new CalculatorCase()
                 {
-                    Start = new DateTime(2017, 1, 2, 7, 0, 0),
-                    End = new DateTime(2017, 1, 2, 10, 00, 0),
+                    TimerData = new TimerDto()
+                    {
+                        Entry = new  DateTime(2017, 1, 2, 7, 0, 0),
+                        Exit = new DateTime(2017, 1, 2, 10, 00, 0)
+                    },
                     Expected = new ParkingRateDto()
                     {
                         Name = "Early Bird",
@@ -80,7 +87,7 @@ namespace Parking.Test.Unit
 
             foreach (var c in cases)
             {
-                var result = _calculatorService.Calculate(c.Start, c.End).Result;
+                var result = _calculatorService.Calculate(c.TimerData).Result;
                 Assert.AreEqual(c.Expected.Name, result.Name);
                 Assert.AreEqual(c.Expected.Price, result.Price);
             }
@@ -94,8 +101,11 @@ namespace Parking.Test.Unit
                 // Edge case
                 new CalculatorCase()
                 {
-                    Start = new DateTime(2017, 1, 2, 18, 0, 0),
-                    End = new DateTime(2017, 1, 3, 6, 0, 0),
+                    TimerData = new TimerDto()
+                    {
+                        Entry = new DateTime(2017, 1, 2, 18, 0, 0),
+                        Exit = new DateTime(2017, 1, 3, 6, 0, 0)
+                    },
                     Expected = new ParkingRateDto()
                     {
                         Name = "Night Rate",
@@ -105,8 +115,11 @@ namespace Parking.Test.Unit
                 // Edge case
                 new CalculatorCase()
                 {
-                    Start = new DateTime(2017, 1, 3, 0, 0, 0),
-                    End = new DateTime(2017, 1, 3, 6, 0, 0),
+                    TimerData = new TimerDto()
+                    {
+                        Entry = new DateTime(2017, 1, 3, 0, 0, 0),
+                        Exit = new DateTime(2017, 1, 3, 6, 0, 0)
+                    },
                     Expected = new ParkingRateDto()
                     {
                         Name = "Night Rate",
@@ -115,8 +128,11 @@ namespace Parking.Test.Unit
                 },
                 new CalculatorCase()
                 {
-                    Start = new DateTime(2017, 1, 2, 20, 0, 0),
-                    End = new DateTime(2017, 1, 3, 4, 0, 0),
+                    TimerData = new TimerDto()
+                    {
+                        Entry = new DateTime(2017, 1, 2, 20, 0, 0),
+                        Exit = new DateTime(2017, 1, 3, 4, 0, 0)
+                    },
                     Expected = new ParkingRateDto()
                     {
                         Name = "Night Rate",
@@ -127,7 +143,7 @@ namespace Parking.Test.Unit
 
             foreach (var c in cases)
             {
-                var result = _calculatorService.Calculate(c.Start, c.End).Result;
+                var result = _calculatorService.Calculate(c.TimerData).Result;
                 Assert.AreEqual(c.Expected.Name, result.Name);
                 Assert.AreEqual(c.Expected.Price, result.Price);
             }
@@ -141,8 +157,11 @@ namespace Parking.Test.Unit
                 // Edge case
                 new CalculatorCase()
                 {
-                    Start = new DateTime(2017, 1, 7, 0, 0, 0),
-                    End = new DateTime(2017, 1, 9, 0, 0, 0),
+                    TimerData = new TimerDto()
+                    {
+                        Entry = new DateTime(2017, 1, 7, 0, 0, 0),
+                        Exit = new DateTime(2017, 1, 9, 0, 0, 0)
+                    },
                     Expected = new ParkingRateDto()
                     {
                         Name = "Weekend Rate",
@@ -151,8 +170,11 @@ namespace Parking.Test.Unit
                 },
                 new CalculatorCase()
                 {
-                    Start = new DateTime(2017, 1, 7, 8, 0, 0),
-                    End = new DateTime(2017, 1, 8, 20, 0, 0),
+                    TimerData = new TimerDto()
+                    {
+                        Entry = new DateTime(2017, 1, 7, 8, 0, 0),
+                        Exit = new DateTime(2017, 1, 8, 20, 0, 0)
+                    },
                     Expected = new ParkingRateDto()
                     {
                         Name = "Weekend Rate",
@@ -163,7 +185,7 @@ namespace Parking.Test.Unit
 
             foreach (var c in cases)
             {
-                var result = _calculatorService.Calculate(c.Start, c.End).Result;
+                var result = _calculatorService.Calculate(c.TimerData).Result;
                 Assert.AreEqual(c.Expected.Name, result.Name);
                 Assert.AreEqual(c.Expected.Price, result.Price);
             }
@@ -176,8 +198,11 @@ namespace Parking.Test.Unit
             {
                 new CalculatorCase()
                 {
-                    Start = new DateTime(2017, 1, 2, 9, 0, 0),
-                    End = new DateTime(2017, 1, 2, 10, 0, 0),
+                    TimerData = new TimerDto()
+                    {
+                        Entry = new DateTime(2017, 1, 2, 9, 0, 0),
+                        Exit = new DateTime(2017, 1, 2, 10, 0, 0)
+                    },
                     Expected = new ParkingRateDto()
                     {
                         Name = "Normal Rate",
@@ -186,8 +211,11 @@ namespace Parking.Test.Unit
                 },
                 new CalculatorCase()
                 {
-                    Start = new DateTime(2017, 1, 2, 10, 0, 0),
-                    End = new DateTime(2017, 1, 2, 12, 0, 0),
+                    TimerData = new TimerDto()
+                    {
+                        Entry = new DateTime(2017, 1, 2, 10, 0, 0),
+                        Exit = new DateTime(2017, 1, 2, 12, 0, 0)
+                    },
                     Expected = new ParkingRateDto()
                     {
                         Name = "Normal Rate",
@@ -196,8 +224,11 @@ namespace Parking.Test.Unit
                 },
                 new CalculatorCase()
                 {
-                    Start = new DateTime(2017, 1, 2, 12, 0, 0),
-                    End = new DateTime(2017, 1, 2, 15, 0, 0),
+                    TimerData = new TimerDto()
+                    {
+                        Entry = new DateTime(2017, 1, 2, 12, 0, 0),
+                        Exit = new DateTime(2017, 1, 2, 15, 0, 0)
+                    },
                     Expected = new ParkingRateDto()
                     {
                         Name = "Normal Rate",
@@ -206,8 +237,11 @@ namespace Parking.Test.Unit
                 },
                 new CalculatorCase()
                 {
-                    Start = new DateTime(2017, 1, 2, 15, 0, 0),
-                    End = new DateTime(2017, 1, 2, 19, 0, 0),
+                    TimerData = new TimerDto()
+                    {
+                        Entry = new DateTime(2017, 1, 2, 15, 0, 0),
+                        Exit = new DateTime(2017, 1, 2, 19, 0, 0)
+                    },
                     Expected = new ParkingRateDto()
                     {
                         Name = "Normal Rate",
@@ -216,8 +250,11 @@ namespace Parking.Test.Unit
                 },
                 new CalculatorCase()
                 {
-                    Start = new DateTime(2017, 1, 2, 12, 0, 0),
-                    End = new DateTime(2017, 1, 4, 12, 0, 0),
+                    TimerData = new TimerDto()
+                    {
+                        Entry = new DateTime(2017, 1, 2, 12, 0, 0),
+                        Exit = new DateTime(2017, 1, 4, 12, 0, 0)
+                    },
                     Expected = new ParkingRateDto()
                     {
                         Name = "Normal Rate",
@@ -226,8 +263,11 @@ namespace Parking.Test.Unit
                 },
                 new CalculatorCase()
                 {
-                    Start = new DateTime(2017, 1, 2, 12, 0, 0),
-                    End = new DateTime(2017, 1, 4, 15, 0, 0),
+                    TimerData = new TimerDto()
+                    {
+                        Entry = new DateTime(2017, 1, 2, 12, 0, 0),
+                        Exit = new DateTime(2017, 1, 4, 15, 0, 0)
+                    },
                     Expected = new ParkingRateDto()
                     {
                         Name = "Normal Rate",
@@ -236,8 +276,11 @@ namespace Parking.Test.Unit
                 },
                 new CalculatorCase()
                 {
-                    Start = new DateTime(2017, 1, 2, 12, 0, 0),
-                    End = new DateTime(2017, 1, 4, 19, 0, 0),
+                    TimerData = new TimerDto()
+                    {
+                        Entry = new DateTime(2017, 1, 2, 12, 0, 0),
+                        Exit = new DateTime(2017, 1, 4, 19, 0, 0)
+                    },
                     Expected = new ParkingRateDto()
                     {
                         Name = "Normal Rate",
@@ -246,8 +289,11 @@ namespace Parking.Test.Unit
                 },
                 new CalculatorCase()
                 {
-                    Start = new DateTime(2017, 1, 2, 12, 0, 0),
-                    End = new DateTime(2017, 1, 2, 12, 15, 0),
+                    TimerData = new TimerDto()
+                    {
+                        Entry = new DateTime(2017, 1, 2, 12, 0, 0),
+                        Exit = new DateTime(2017, 1, 2, 12, 15, 0)
+                    },
                     Expected = new ParkingRateDto()
                     {
                         Name = "Normal Rate",
@@ -258,7 +304,7 @@ namespace Parking.Test.Unit
 
             foreach (var c in cases)
             {
-                var result = _calculatorService.Calculate(c.Start, c.End).Result;
+                var result = _calculatorService.Calculate(c.TimerData).Result;
                 Assert.AreEqual(c.Expected.Name, result.Name);
                 Assert.AreEqual(c.Expected.Price, result.Price);
             }

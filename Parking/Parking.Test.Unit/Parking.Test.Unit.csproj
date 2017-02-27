@@ -73,6 +73,10 @@
       <Project>{6590339F-6B6C-48B2-BF38-4DA962B99E0A}</Project>
       <Name>Parking.Domain.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Parking.Infrastructure.CrossCutting\Parking.Infrastructure.CrossCutting.csproj">
+      <Project>{99694AF0-437B-40E1-BAEA-2FB6D9A29EB3}</Project>
+      <Name>Parking.Infrastructure.CrossCutting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Parking.Infrastructure.DependencyInjection\Parking.Infrastructure.DependencyInjection.csproj">
       <Project>{D959EE5D-43C6-4CBE-84FD-911CA16A308C}</Project>
       <Name>Parking.Infrastructure.DependencyInjection</Name>

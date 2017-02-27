@@ -1,11 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
-using Parking.Domain.Service.DTOs;
+﻿using System.Threading.Tasks;
+using Parking.Infrastructure.CrossCutting.DTOs;
 
 namespace Parking.Domain.Service.Abstractions
 {
     public interface ICalculatorService
     {
-        Task<ParkingRateDto> Calculate(DateTime start, DateTime end);
+        Task<ParkingRateDto> Calculate(TimerDto input);
     }   
 }

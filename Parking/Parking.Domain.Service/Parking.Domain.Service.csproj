@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTOs\ParkingRateDto.cs" />
     <Compile Include="Abstractions\INormalService.cs" />
     <Compile Include="Abstractions\ICalculatorService.cs" />
     <Compile Include="Abstractions\ISpecialService.cs" />
