@@ -1,6 +1,6 @@
-﻿namespace Parking.Infrastructure.CrossCutting.DTOs
+﻿namespace Parking.Infrastructure.CrossCutting.Validators
 {
-    public class ValidationDto
+    public class Validation
     {
         public bool IsValid { get; set; }
         public string ErrorMessage { get; set; }

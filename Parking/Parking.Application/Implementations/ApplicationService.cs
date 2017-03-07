@@ -6,6 +6,7 @@ using Parking.Application.Abstractions;
 using Parking.Domain.Service.Abstractions;
 using Parking.Infrastructure.CrossCutting.Abstractions;
 using Parking.Infrastructure.CrossCutting.DTOs;
+using Parking.Infrastructure.CrossCutting.Validators;
 
 namespace Parking.Application.Implementations
 {
@@ -37,7 +38,7 @@ namespace Parking.Application.Implementations
         }
         
         // TODO: orchestrate with Chain of Responsibility pattern
-        public ValidationDto ValidateConsoleInput(IList<string> input, out TimerDto timer)
+        public Validation ValidateConsoleInput(IList<string> input, out TimerDto timer)
         {
             timer = new TimerDto();
 
@@ -66,7 +67,7 @@ namespace Parking.Application.Implementations
                 }
             }
            
-            return new ValidationDto() {IsValid = true};
+            return new Validation() {IsValid = true};
         }
     }
 }

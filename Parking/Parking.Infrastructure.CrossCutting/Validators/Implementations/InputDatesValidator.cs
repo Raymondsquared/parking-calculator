@@ -2,13 +2,13 @@
 using Parking.Infrastructure.CrossCutting.Abstractions;
 using Parking.Infrastructure.CrossCutting.DTOs;
 
-namespace Parking.Infrastructure.CrossCutting.Validators
+namespace Parking.Infrastructure.CrossCutting.Validators.Implementations
 {
     public class InputDatesValidator : IValidator<TimerDto>
     {
-        public ValidationDto IsValid(TimerDto input)
+        public Validation IsValid(TimerDto input)
         {
-            var result = new ValidationDto() { IsValid = true };
+            var result = new Validation() { IsValid = true };
 
             var start = Convert.ToDateTime(input.Entry);
             var end = Convert.ToDateTime(input.Exit);

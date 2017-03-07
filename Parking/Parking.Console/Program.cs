@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Autofac;
 using Parking.Application.Abstractions;
 using Parking.Infrastructure.CrossCutting.DTOs;
+using Parking.Infrastructure.CrossCutting.Validators;
 using Parking.Infrastructure.DependencyInjection;
 
 namespace Parking.Console
@@ -19,7 +20,7 @@ namespace Parking.Console
             var appService = container.Resolve<IApplicationService>();
 
             var timer = new TimerDto();
-            var valid = new ValidationDto();
+            var valid = new Validation();
 
             while (!valid.IsValid)
             {

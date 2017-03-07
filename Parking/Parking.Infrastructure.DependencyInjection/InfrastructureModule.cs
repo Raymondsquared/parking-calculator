@@ -5,6 +5,7 @@ using Parking.Infrastructure.CrossCutting;
 using Parking.Infrastructure.CrossCutting.Abstractions;
 using Parking.Infrastructure.CrossCutting.DTOs;
 using Parking.Infrastructure.CrossCutting.Validators;
+using Parking.Infrastructure.CrossCutting.Validators.Implementations;
 using Parking.Infrastructure.Repositories;
 
 namespace Parking.Infrastructure.DependencyInjection

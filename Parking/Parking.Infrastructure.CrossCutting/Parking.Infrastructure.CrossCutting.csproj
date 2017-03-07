@@ -53,10 +53,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="DTOs\TimerDto.cs" />
-    <Compile Include="Validators\InputDatesValidator.cs" />
-    <Compile Include="Validators\InputDateValidator.cs" />
-    <Compile Include="Validators\InputStringValidator.cs" />
-    <Compile Include="DTOs\ValidationDto.cs" />
+    <Compile Include="Validators\Implementations\InputDatesValidator.cs" />
+    <Compile Include="Validators\Implementations\InputDateValidator.cs" />
+    <Compile Include="Validators\Implementations\InputStringValidator.cs" />
+    <Compile Include="Validators\Validation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

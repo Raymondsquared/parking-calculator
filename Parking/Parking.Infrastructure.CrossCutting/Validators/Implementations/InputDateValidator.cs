@@ -1,14 +1,13 @@
 ﻿using System;
 using Parking.Infrastructure.CrossCutting.Abstractions;
-using Parking.Infrastructure.CrossCutting.DTOs;
 
-namespace Parking.Infrastructure.CrossCutting.Validators
+namespace Parking.Infrastructure.CrossCutting.Validators.Implementations
 {
     public class InputDateValidator : IValidator<string>
     {
-        public ValidationDto IsValid(string input)
+        public Validation IsValid(string input)
         {
-            var result = new ValidationDto() { IsValid = true };
+            var result = new Validation() { IsValid = true };
 
             try
             {
