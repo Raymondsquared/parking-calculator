@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Parking.Domain.Service.Abstractions;
+using Parking.Infrastructure.CrossCutting;
 using Parking.Infrastructure.CrossCutting.DTOs;
 using Parking.Infrastructure.DependencyInjection;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
@@ -192,7 +193,7 @@ namespace Parking.Test.Unit
         }
 
         [TestMethod]
-        public void GivenNormalCondition_WhenEnter_ThenReturnNormalRate()
+        public void GivenNormalCondition_WhenEnter_ThenReturnStandardRate()
         {
             List<CalculatorCase> cases = new List<CalculatorCase>()
             {
@@ -205,7 +206,7 @@ namespace Parking.Test.Unit
                     },
                     Expected = new ParkingRateDto()
                     {
-                        Name = "Normal Rate",
+                        Name = CONSTANTS.RATE.STANDARD,
                         Price = 5
                     }
                 },
@@ -218,7 +219,7 @@ namespace Parking.Test.Unit
                     },
                     Expected = new ParkingRateDto()
                     {
-                        Name = "Normal Rate",
+                        Name = CONSTANTS.RATE.STANDARD,
                         Price = 10
                     }
                 },
@@ -231,7 +232,7 @@ namespace Parking.Test.Unit
                     },
                     Expected = new ParkingRateDto()
                     {
-                        Name = "Normal Rate",
+                        Name = CONSTANTS.RATE.STANDARD,
                         Price = 15
                     }
                 },
@@ -244,7 +245,7 @@ namespace Parking.Test.Unit
                     },
                     Expected = new ParkingRateDto()
                     {
-                        Name = "Normal Rate",
+                        Name = CONSTANTS.RATE.STANDARD,
                         Price = 20
                     }
                 },
@@ -257,7 +258,7 @@ namespace Parking.Test.Unit
                     },
                     Expected = new ParkingRateDto()
                     {
-                        Name = "Normal Rate",
+                        Name = CONSTANTS.RATE.STANDARD,
                         Price = 40
                     }
                 },
@@ -270,7 +271,7 @@ namespace Parking.Test.Unit
                     },
                     Expected = new ParkingRateDto()
                     {
-                        Name = "Normal Rate",
+                        Name = CONSTANTS.RATE.STANDARD,
                         Price = 55
                     }
                 },
@@ -283,7 +284,7 @@ namespace Parking.Test.Unit
                     },
                     Expected = new ParkingRateDto()
                     {
-                        Name = "Normal Rate",
+                        Name = CONSTANTS.RATE.STANDARD,
                         Price = 60
                     }
                 },
@@ -296,7 +297,7 @@ namespace Parking.Test.Unit
                     },
                     Expected = new ParkingRateDto()
                     {
-                        Name = "Normal Rate",
+                        Name = CONSTANTS.RATE.STANDARD,
                         Price = 5
                     }
                 }

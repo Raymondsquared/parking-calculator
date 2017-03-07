@@ -1,10 +1,15 @@
 ﻿namespace Parking.Infrastructure.CrossCutting
 {
-    public static class Constants
+    public static class CONSTANTS
     {
-        public enum ApplicationTypes
+        public enum APPLICATION_TYPES
         {
-            Console
+            CONSOLE
+        }
+
+        public class RATE
+        {
+            public const string STANDARD = "Standard Rate";
         }
     }
 }

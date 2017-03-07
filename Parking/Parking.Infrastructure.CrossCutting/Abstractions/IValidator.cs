@@ -1,5 +1,4 @@
-﻿using Parking.Infrastructure.CrossCutting.DTOs;
-using Parking.Infrastructure.CrossCutting.Validators;
+﻿using Parking.Infrastructure.CrossCutting.Validators;
 
 namespace Parking.Infrastructure.CrossCutting.Abstractions
 {

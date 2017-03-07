@@ -4,7 +4,6 @@ using Parking.Infrastructure.Abstractions;
 using Parking.Infrastructure.CrossCutting;
 using Parking.Infrastructure.CrossCutting.Abstractions;
 using Parking.Infrastructure.CrossCutting.DTOs;
-using Parking.Infrastructure.CrossCutting.Validators;
 using Parking.Infrastructure.CrossCutting.Validators.Implementations;
 using Parking.Infrastructure.Repositories;
 
@@ -18,10 +17,10 @@ namespace Parking.Infrastructure.DependencyInjection
             /* Validators */
             builder.RegisterType<InputStringValidator>()
                 .As<IValidator<string>>()
-                .Keyed<IValidator<string>>(Constants.ApplicationTypes.Console);
+                .Keyed<IValidator<string>>(CONSTANTS.APPLICATION_TYPES.CONSOLE);
             builder.RegisterType<InputDateValidator>()
                 .As<IValidator<string>>()
-                .Keyed<IValidator<string>>(Constants.ApplicationTypes.Console);
+                .Keyed<IValidator<string>>(CONSTANTS.APPLICATION_TYPES.CONSOLE);
             
             builder.RegisterType<InputDatesValidator>()
                 .As<IValidator<TimerDto>>();

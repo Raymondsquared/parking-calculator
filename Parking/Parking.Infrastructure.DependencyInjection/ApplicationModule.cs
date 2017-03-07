@@ -17,7 +17,7 @@ namespace Parking.Infrastructure.DependencyInjection
                 .WithParameter(
                     new ResolvedParameter(
                         (pi, ctx) => pi.ParameterType == typeof(IValidator<string>),
-                        (pi, ctx) => ctx.ResolveKeyed<IValidator<string>>(Constants.ApplicationTypes.Console)))
+                        (pi, ctx) => ctx.ResolveKeyed<IValidator<string>>(CONSTANTS.APPLICATION_TYPES.CONSOLE)))
                 .SingleInstance();
         }
     }

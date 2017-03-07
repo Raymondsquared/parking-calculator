@@ -3,7 +3,7 @@ using Parking.Infrastructure.CrossCutting.Abstractions;
 
 namespace Parking.Domain.Service.Abstractions
 {
-    public interface ISpecialService : IDomainService<Special>
+    public interface INormalService : IDomainService<Normal>, IRateService<Normal>
     {
     }
 }
